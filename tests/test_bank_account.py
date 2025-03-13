@@ -1,5 +1,6 @@
 import unittest , os
 import unittest.mock
+from datetime import datetime
 from unittest.mock import patch
 from src.bank_account import BankAccount
 
@@ -21,7 +22,9 @@ class BankAccountTests(unittest.TestCase):
         new_balance = self.account.deposit(500)
         assert new_balance == 1500
 
-    def test_withdraw(self,):
+    @patch("src.bank_account.datetime")
+    def test_withdraw(self, mock_datetime):
+        mock_datetime.now.return_value = datetime(2025, 3, 12, 10, 0, 0)
         withdrawed = self.account.withdraw(500)
         assert withdrawed == 500
 
